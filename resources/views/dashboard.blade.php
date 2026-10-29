@@ -1,18 +1,11 @@
-<x-layouts::app :title="__('Dashboard')">
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
-        <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-        </div>
-        <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-        </div>
+<x-layouts.tenant title="Dashboard">
+    <div class="flex items-center gap-3">
+        <h1 class="text-xl font-semibold">{{ $tenant->display_name }}</h1>
+        <x-status-badge :status="$tenant->status">{{ $tenant->status }}</x-status-badge>
     </div>
-</x-layouts::app>
+    <p class="mt-2 text-sm text-zinc-500 dark:text-zinc-400">Slug: <span class="font-mono">{{ $tenant->slug }}</span></p>
+    <div class="mt-6">
+        <x-empty-state title="Belum ada aktivitas"
+            description="Katalog, pesanan, dan KDS tenant akan tampil di sini (Modul 7 & 12)." />
+    </div>
+</x-layouts.tenant>

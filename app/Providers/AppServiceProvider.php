@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use App\Support\Tenancy\TenantContext;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,9 +16,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Scoped: satu instance per request/job; direset di lifecycle berikutnya (tidak bocor).
+        $this->app->scoped(
+            TenantContext::class,
+            fn(): TenantContext => new TenantContext,
+        );
     }
-
     /**
      * Bootstrap any application services.
      */
@@ -37,14 +41,15 @@ class AppServiceProvider extends ServiceProvider
             app()->isProduction(),
         );
 
-        Password::defaults(fn (): ?Password => app()->isProduction()
-            ? Password::min(12)
+        Password::defaults(
+            fn(): ?Password => app()->isProduction()
+                ? Password::min(12)
                 ->mixedCase()
                 ->letters()
                 ->numbers()
                 ->symbols()
                 ->uncompromised()
-            : null,
+                : null,
         );
     }
 }

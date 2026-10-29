@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\Kitchen;
+namespace App\Modules\Payments;
 
 use App\Modules\ModuleServiceProvider;
 
-final class KitchenServiceProvider extends ModuleServiceProvider
+final class PaymentsServiceProvider extends ModuleServiceProvider
 {
     public function register(): void
     {
@@ -13,6 +13,6 @@ final class KitchenServiceProvider extends ModuleServiceProvider
 
     protected function moduleAlias(): string
     {
-        return 'kitchen';
+        return 'payments';
     }
 }
